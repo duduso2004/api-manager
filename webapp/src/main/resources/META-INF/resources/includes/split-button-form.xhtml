@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="jakarta.faces.core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:splitButton value="#{msg.GERAL_SALVAR}"
+                   action="#{bean.salvar}"
+                   update="@form"
+                   icon="fa fa-check"
+                   styleClass="hidden-md hidden-lg btn-primary">
+        <p:menuitem value="#{msg.GERAL_LIMPAR}"
+                    action="#{bean.clear}"
+                    process="@this"
+                    update="@form"
+                    rendered="#{escolaFormMB.isNew()}"
+                    resetValues="true"
+                    icon="fa fa-refresh"/>
+        <p:menuitem value="#{msg.GERAL_EXCLUIR}"
+                    action="#{bean.excluir}"
+                    process="@this"
+                    rendered="#{not escolaFormMB.isNew()}"
+                    icon="fa fa-trash">
+            <f:setPropertyActionListener value="true" target="#{facesContext.externalContext.flash.keepMessages}"/>
+            <p:confirm header="#{msg.GERAL_CONFIRMACAO}"
+                       message="#{msg.GERAL_DESEJA_REALMENTE_EXCLUIR}"
+                       icon="pi pi-exclamation-triangle"/>
+        </p:menuitem>
+        <p:separator/>
+        <p:menuitem value="#{msg.GERAL_VOLTAR}"
+                    action="#{bean.voltar}"
+                    process="@this"
+                    immediate="true"
+                    icon="fa fa-reply"/>
+    </p:splitButton>
+
+</ui:composition>

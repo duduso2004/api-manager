@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core"
+                template="admin.xhtml">
+
+    <ui:define name="head">
+        <title>#{msg.TITULO_APLICACAO}</title>
+        <link rel="shortcut icon" href="#{resource['favicon/cogs-solid.svg']}"/>
+        <meta name="theme-color" content="#444"/>
+        <meta name="mobile-web-app-capable" content="yes"/>
+        <f:loadBundle var="msg" basename="messages"/>
+    </ui:define>
+
+    <ui:define name="logo">
+        <i class="fa fa-cogs" aria-hidden="true"/>&nbsp;&nbsp;#{msg.TITULO_APLICACAO}
+    </ui:define>
+
+    <ui:define name="logo-mini">
+        <i class="fa fa-cogs" aria-hidden="true"/>
+    </ui:define>
+
+    <ui:define name="menu">
+        <ui:include src="/includes/menu.xhtml"/>
+    </ui:define>
+
+    <ui:define name="top-menu">
+        <ui:include src="/includes/top-bar.xhtml"/>
+    </ui:define>
+
+    <!-- below is just an example on how to define more tabs for control sidebar -->
+    <ui:define name="controlsidebar-tabs">
+
+    </ui:define>
+
+    <ui:define name="controlsidebar-content">
+        <ui:include src="/includes/controlsidebar-tabs-content.xhtml"/>
+    </ui:define>
+
+    <ui:define name="footer">
+        <a target="_blank" href="https://adminfaces.github.io/site/">
+            #{msg.FOOTER_LEFT}
+        </a>
+        <div class="pull-right hidden-xs" style="color: gray">
+            <i>#{msg.VERSAO}</i>
+        </div>
+    </ui:define>
+
+</ui:composition>

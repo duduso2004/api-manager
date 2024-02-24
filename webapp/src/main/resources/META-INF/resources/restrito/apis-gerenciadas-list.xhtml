@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="jakarta.faces.core"
+                template="#{layoutMB.template}">
+
+    <ui:define name="head-end">
+        <ui:param name="renderBreadCrumb" value="false"/>
+    </ui:define>
+
+    <ui:define name="body">
+
+        <p:messages showDetail="false">
+            <p:autoUpdate/>
+        </p:messages>
+
+        <ui:include src="/includes/status-dialog.xhtml"/>
+
+        <p:ajaxStatus onstart="PF('customStatusDialog').show()" onsuccess="PF('customStatusDialog').hide()"/>
+
+        <h:form>
+
+            <p:dataTable var="api"
+                         value="#{apiManagerListMB.apisGerenciadas}"
+                         rowKey="#{api.id}">
+
+                <f:facet name="header">
+                    <p:commandButton value="#{msg.GERAL_NOVO}"
+                                     action="/restrito/apis-gerenciadas-form?faces-redirect=true"
+                                     icon="fa fa-plus"
+                                     styleClass="btn-primary"/>
+                </f:facet>
+
+                <p:column headerText="#{msg.NOME}" sortBy="#{api.nome}">
+                    #{api.nome}
+                </p:column>
+
+                <p:column headerText="#{msg.DESCRICAO}" sortBy="#{api.descricao}">
+                    #{api.descricao}
+                </p:column>
+
+                <p:column headerText="#{msg.DATA_HORA_CADASTRO}" sortBy="#{api.dataCadastro}" style="text-align: center">
+                    #{api.dataCadastro}
+                </p:column>
+
+                <p:column headerText="#{msg.DATA_HORA_ULTIMA_ALTERACAO}" sortBy="#{api.dataAlteracao}" style="text-align: center">
+                    #{api.dataAlteracao}
+                </p:column>
+
+                <p:column headerText="#{msg.GERAL_OPCOES}" style="text-align: center">
+                    <p:commandButton id="btnOpcoes" value="#{msg.GERAL_ABRIR}" type="button" icon="pi pi-angle-down"/>
+                    <p:tieredMenu overlay="true" trigger="btnOpcoes" my="left top" at="left bottom" style="width:200px">
+                        <p:menuitem value="#{msg.GERAL_EDITAR}"
+                                    action="#{apiManagerListMB.editar(api.id)}"
+                                    icon="pi pi-pencil"/>
+                        <p:menuitem value="#{msg.GERAL_EXCLUIR}"
+                                    action="#{apiManagerListMB.excluir()}"
+                                    icon="pi pi-trash"
+                                    update="@form">
+                            <f:setPropertyActionListener value="#{api}" target="#{apiManagerListMB.apiSelecionada}"/>
+                            <p:confirm header="#{msg.GERAL_CONFIRMACAO}"
+                                       message="#{msg.GERAL_DESEJA_REALMENTE_EXCLUIR_REGISTRO_SELECIONADO}"
+                                       icon="pi pi-exclamation-triangle"/>
+                        </p:menuitem>
+                    </p:tieredMenu>
+                </p:column>
+
+            </p:dataTable>
+
+            <ui:include src="/includes/confirm-dialog.xhtml"/>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

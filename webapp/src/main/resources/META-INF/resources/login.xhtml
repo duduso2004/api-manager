@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <f:view contentType="text/html">
+
+        <h:head>
+            <title>#{msg.TITULO_APLICACAO}</title>
+            <meta charset="UTF-8"/>
+            <meta http-equiv="cache-control" content="no-cache" />
+            <meta http-equiv="Pragma" content="no-cache" />
+            <meta http-equiv="Expires" content="-1" />
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+            <link rel="stylesheet" type="text/css" href="#{resource['css/googlefonts.css']}"/>
+            <link rel="stylesheet" type="text/css" href="#{resource['css/style.css']}"/>
+            <link rel="shortcut icon" href="#{resource['favicon/cogs-solid.svg']}"/>
+            <f:loadBundle var="msg" basename="messages"/>
+        </h:head>
+
+        <h:body styleClass="img js-fullheight" style="background-image: url(images/bg.jpg);">
+
+            <p:growl showDetail="false">
+                <p:autoUpdate/>
+            </p:growl>
+
+            <ui:include src="includes/status-dialog.xhtml"/>
+
+            <section class="ftco-section">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="login-wrap p-0">
+                                <h3 class="mb-4 text-center">
+                                    <i class="fa fa-cogs fa-2x" aria-hidden="true"/>&nbsp;&nbsp;#{msg.TITULO_APLICACAO}
+                                </h3>
+                                <h:form id="formLogin" styleClass="signin-form" onsubmit="PF('customStatusDialog').show();">
+                                    <div class="form-group">
+                                        <h:inputText value="#{autenticacaoMB.usuario}"
+                                                     styleClass="form-control"
+                                                     placeholder="#{msg.GERAL_USUARIO}">
+                                            <f:passThroughAttribute name="placeholder" value="#{msg.GERAL_USUARIO}" />
+                                            <f:passThroughAttribute name="required" value="true" />
+                                        </h:inputText>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:inputText id="password-field"
+                                                     value="#{autenticacaoMB.senha}"
+                                                     type="password"
+                                                     styleClass="form-control">
+                                            <f:passThroughAttribute name="required" value="true" />
+                                            <f:passThroughAttribute name="id" value="password-field" />
+                                            <f:passThroughAttribute name="placeholder" value="#{msg.GERAL_SENHA}" />
+                                        </h:inputText>
+                                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:commandButton id="btnEntrar"
+                                                         value="#{msg.GERAL_ENTRAR}"
+                                                         styleClass="form-control btn btn-primary submit px-3"
+                                                         action="#{autenticacaoMB.entrar()}"/>
+                                    </div>
+                                </h:form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <script src="#{resource['js/popper.js']}"/>
+            <script src="#{resource['js/main.js']}"/>
+
+        </h:body>
+
+    </f:view>
+
+</html>

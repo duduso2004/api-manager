@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns:h="jakarta.faces.html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <style type="text/css">
+        #layout-menu_menu {
+            z-index: 9997!important;
+        }
+        #layout-menu_menu span.ui-menuitem-text {
+            margin-left: 2px;
+        }
+        .navbar-nav>.user-menu>.dropdown-menu>li.user-header {
+            height: auto !important;
+            padding: 10px !important;
+            text-align: center !important;
+        }
+    </style>
+    <ul class="nav navbar-nav">
+        <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="hidden-xs">
+                    <i class="pi pi-user"/>&nbsp;&nbsp;${sessionMB.usuarioAutenticadoLogin}
+                </span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="user-header">
+                    <p>
+                        <i class="pi pi-user" style="font-size: 3rem"/>
+                        <br/>
+                        ${sessionMB.usuarioAutenticadoNome}
+                        <small>${sessionMB.usuarioAutenticadoLogin}</small>
+                    </p>
+                </li>
+                <li class="user-footer">
+                    <h:form prependId="false">
+                        <p:commandButton value="#{msg.GERAL_SAIR}"
+                                         styleClass="btn btn-block"
+                                         icon="fa fa-sign-out"
+                                         action="#{sessionMB.logout()}"/>
+                    </h:form>
+                </li>
+            </ul>
+        </li>
+        <li style="display: #{adminConfig.renderControlSidebar ? 'block' : 'none'}">
+            <a id="layout-setup"
+               href="#"
+               data-toggle="control-sidebar">
+                <i class="fa fa-gears"/>
+            </a>
+        </li>
+    </ul>
+
+
+</ui:composition>

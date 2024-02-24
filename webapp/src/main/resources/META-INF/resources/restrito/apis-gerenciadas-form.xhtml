@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="jakarta.faces.html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="jakarta.faces.core"
+                template="#{layoutMB.template}">
+
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="id" value="#{apiManagerFormMB.apiManagerId}" converter="jakarta.faces.Long"/>
+            <f:event type="preRenderView" listener="#{apiManagerFormMB.init}"/>
+        </f:metadata>
+        <ui:param name="renderFormAsterisks" value="true"/>
+    </ui:define>
+
+    <ui:define name="head-end">
+        <ui:param name="renderBreadCrumb" value="false"/>
+    </ui:define>
+
+    <ui:define name="title">
+        <i class="fa fa-tasks"/> #{msg.GERENCIAMENTO_API_CADASTRO}
+    </ui:define>
+
+    <ui:define name="body">
+
+        <p:messages showDetail="false">
+            <p:autoUpdate/>
+        </p:messages>
+
+        <ui:include src="/includes/status-dialog.xhtml"/>
+
+        <p:ajaxStatus onstart="PF('customStatusDialog').show()" onsuccess="PF('customStatusDialog').hide()"/>
+
+        <h:form>
+
+            <p:panel styleClass="box-primary card">
+
+                <f:facet name="header">
+                    <i class="pi pi-cog"/> #{msg.GERENCIAMENTO_API_CADASTRO}
+                </f:facet>
+
+                <p:panelGrid columns="4"
+                             columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-1,ui-grid-col-7"
+                             layout="grid"
+                             styleClass="ui-panelgrid-blank ui-fluid"
+                             style="border:0px none; background-color:transparent;">
+
+                    <p:outputLabel value="#{msg.NOME}" for="@next"/>
+                    <p:inputText id="inputNome"
+                                 value="${apiManagerFormMB.apiManager.nome}"
+                                 required="true"
+                                 maxlength="50"/>
+
+                    <p:outputLabel value="#{msg.DESCRICAO}" for="@next"/>
+                    <p:inputText id="inputDescricao"
+                                 value="${apiManagerFormMB.apiManager.descricao}"
+                                 required="true"
+                                 maxlength="100"/>
+
+                </p:panelGrid>
+
+            </p:panel>
+
+            <br/>
+
+            <p:panel styleClass="box-primary card">
+
+                <f:facet name="header">
+                    <i class="pi pi-server"/> #{msg.PORTAS_MAPEADAS}
+                </f:facet>
+
+                <p:dataTable var="port"
+                             value="#{apiManagerFormMB.apiManager.portasMapeadas}"
+                             rowKey="#{port.id}">
+
+                    <f:facet name="header">
+                        <p:commandButton icon="pi pi-plus"
+                                         action="#{apiManagerFormMB.addPorta()}"
+                                         process="@this"
+                                         styleClass="rounded-button btn-primary"
+                                         update=":formAddEditPort"/>
+                    </f:facet>
+
+                    <p:column headerText="#{msg.PORTA}" sortBy="#{port.porta}">
+                        #{port.porta}
+                    </p:column>
+
+                    <p:column headerText="#{msg.HOST_NAME}" sortBy="#{port.hostName}">
+                        #{port.hostName}
+                    </p:column>
+
+                    <p:column headerText="#{msg.LINK_SWAGGER}" sortBy="#{port.linkSwagger}">
+                        <a href="#{port.linkSwagger}" target="_blank">#{port.linkSwagger}</a>
+                    </p:column>
+
+                    <p:column headerText="#{msg.AMBIENTE}" sortBy="#{port.ambiente.name}">
+                        #{port.ambiente.descricao}
+                    </p:column>
+
+                    <p:column headerText="#{msg.SECRET_DB_STATUS}" sortBy="#{port.secretDbStatus}">
+                        #{port.secretDbStatus}
+                    </p:column>
+
+                    <p:column headerText="#{msg.GERAL_OPCOES}" style="text-align: center">
+                        <p:commandButton icon="pi pi-pencil"
+                                         action="#{apiManagerFormMB.editPorta(port)}"
+                                         process="@this"
+                                         styleClass="rounded-button btn-secondary"
+                                         update=":formAddEditPort"/>
+                        <p:commandButton type="button"
+                                         icon="pi pi-times"
+                                         styleClass="rounded-button btn-danger" />
+                    </p:column>
+
+                </p:dataTable>
+
+            </p:panel>
+
+            <br/>
+
+            <p:commandButton id="btnSalvar"
+                             value="#{msg.GERAL_SALVAR}"
+                             process="@form"
+                             action="#{apiManagerFormMB.salvarApiGerenciada()}"
+                             icon="fa fa-check"
+                             styleClass="btn-success"/>
+
+            <p:commandButton id="btnVoltar"
+                             value="#{msg.GERAL_VOLTAR}"
+                             process="@this"
+                             action="#{apiManagerFormMB.voltar()}"
+                             icon="fa fa-reply"/>
+
+        </h:form>
+
+        <ui:include src="add-edit-port-dialog.xhtml"/>
+
+    </ui:define>
+
+</ui:composition>

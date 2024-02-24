@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:f="jakarta.faces.core">
+
+    <p:dialog id="addEditPortDialog"
+              modal="true"
+              header="#{msg.DADOS_CADASTRO_PORTAS_MAPEADAS}"
+              widgetVar="addEditPortDialog"
+              responsive="true"
+              resizable="false"
+              closeOnEscape="true"
+              width="600"
+              appendTo="@(body)">
+
+        <h:form id="formAddEditPort">
+
+            <p:panel styleClass="box-primary card">
+
+                <f:facet name="header">
+                    <i class="pi pi-cog"/> #{msg.GERENCIAMENTO_API_CADASTRO}
+                </f:facet>
+
+                <p:panelGrid columns="2"
+                             columnClasses="ui-grid-col-3,ui-grid-col-9"
+                             layout="grid"
+                             styleClass="ui-panelgrid-blank ui-fluid"
+                             style="border: 0px none; background-color: transparent;">
+
+                    <p:outputLabel value="#{msg.PORTA}" for="@next"/>
+                    <p:inputNumber id="inputPorta"
+                                   value="#{apiManagerFormMB.portaSelecionada.porta}"
+                                   minValue="1"
+                                   decimalPlaces="0"
+                                   thousandSeparator=""
+                                   maxValue="999999"/>
+
+                    <p:outputLabel value="#{msg.HOST_NAME}" for="@next"/>
+                    <p:inputText id="inputHostName"
+                                 value="#{apiManagerFormMB.portaSelecionada.hostName}"/>
+
+                    <p:outputLabel value="#{msg.LINK_SWAGGER}" for="@next"/>
+                    <p:inputText id="inputLinkSwagger"
+                                 value="#{apiManagerFormMB.portaSelecionada.linkSwagger}"/>
+
+                    <p:outputLabel value="#{msg.AMBIENTE}" for="@next"/>
+                    <p:selectOneMenu id="selectAmbiente"
+                                     value="#{apiManagerFormMB.portaSelecionada.ambiente}">
+                        <f:selectItems value="#{apiManagerFormMB.ambientes}"
+                                       var="ambiente"
+                                       itemValue="#{ambiente.name()}"
+                                       itemLabel="#{ambiente.descricao}"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="#{msg.SECRET_DB_STATUS}" for="@next"/>
+                    <p:inputText id="inputSecretDbStatus"
+                                 value="#{apiManagerFormMB.portaSelecionada.secretDbStatus}"/>
+
+                </p:panelGrid>
+
+                <f:facet name="footer">
+
+                </f:facet>
+
+            </p:panel>
+
+        </h:form>
+
+    </p:dialog>
+
+</ui:composition>

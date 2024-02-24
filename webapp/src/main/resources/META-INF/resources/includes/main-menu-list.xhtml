@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:commandButton value="#{msg.GERAL_NOVO}"
+                     action="#{bean.novoRegistro}"
+                     icon="fa fa-plus"
+                     styleClass="btn-primary"/>
+    <p:spacer width="5"/>
+    <p:commandButton value="#{msg.GERAL_EXCLUIR}"
+                     icon="fa fa-trash"
+                     styleClass="btn-danger"
+                     action="#{bean.excluir}"
+                     disabled="#{bean.registroSelecionado eq null}"
+                     process="@this"
+                     update="@form">
+        <p:confirm header="#{msg.GERAL_CONFIRMACAO}"
+                   message="#{msg.GERAL_DESEJA_REALMENTE_EXCLUIR_REGISTRO_SELECIONADO}"
+                   icon="pi pi-exclamation-triangle"/>
+    </p:commandButton>
+    <p:spacer width="5"/>
+    <p:commandButton value="#{msg.GERAL_EDITAR}"
+                     action="#{bean.editarRegistro}"
+                     styleClass="btn-info"
+                     disabled="#{bean.registroSelecionado eq null}"
+                     icon="fa fa-edit"
+                     ajax="false"/>
+
+</ui:composition>
