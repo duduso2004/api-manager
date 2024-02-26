@@ -6,12 +6,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>br.gov.mg.fazenda.manager.api</groupId>
-        <artifactId>api-manager</artifactId>
-        <version>1.0.0</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.3</version>
+        <relativePath/>
     </parent>
 
-    <artifactId>webapp</artifactId>
+    <groupId>br.gov.mg.fazenda.manager.api.webapp</groupId>
+    <artifactId>api-manager-webapp</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
 
     <properties>
         <jaxb.version>2.3.1</jaxb.version>
@@ -54,6 +58,11 @@
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
             <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 

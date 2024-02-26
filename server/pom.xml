@@ -6,12 +6,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>br.gov.mg.fazenda.manager.api</groupId>
-        <artifactId>api-manager</artifactId>
-        <version>1.0.0</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.3</version>
+        <relativePath/>
     </parent>
 
-    <artifactId>server</artifactId>
+    <groupId>br.gov.mg.fazenda.manager.api.server</groupId>
+    <artifactId>api-manager-server</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
 
     <properties>
         <springdoc.version>2.1.0</springdoc.version>
@@ -46,9 +50,15 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
