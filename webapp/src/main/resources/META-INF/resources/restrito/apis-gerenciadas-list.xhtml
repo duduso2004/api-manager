@@ -41,11 +41,15 @@
                 </p:column>
 
                 <p:column headerText="#{msg.DATA_HORA_CADASTRO}" sortBy="#{api.dataCadastro}" style="text-align: center">
-                    #{api.dataCadastro}
+                    <h:outputText value="#{api.dataCadastro}">
+                        <f:convertDateTime pattern="#{msg.GERAL_FORMATO_DATA_HORA}" timeZone="#{msg.GERAL_TIME_ZONE}" type="localDateTime"/>
+                    </h:outputText>
                 </p:column>
 
                 <p:column headerText="#{msg.DATA_HORA_ULTIMA_ALTERACAO}" sortBy="#{api.dataAlteracao}" style="text-align: center">
-                    #{api.dataAlteracao}
+                    <h:outputText value="#{api.dataAlteracao}">
+                        <f:convertDateTime pattern="#{msg.GERAL_FORMATO_DATA_HORA}" timeZone="#{msg.GERAL_TIME_ZONE}" type="localDateTime"/>
+                    </h:outputText>
                 </p:column>
 
                 <p:column headerText="#{msg.GERAL_OPCOES}" style="text-align: center">
